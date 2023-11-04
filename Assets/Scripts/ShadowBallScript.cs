@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class ShadowBall : MonoBehaviour
 {
-    public float Speed = 1f;
     public float HareketAraligi = 2.0f;
     float yMin = -3.6f;
     float yMax = 5.64f;
 
-    float tolerans = 0.5f;
+    float tolerans = 3f;
 
     private float targetY;
 
-    bool yonYukariMi=true;
 
     Transform ball;
 
@@ -22,66 +20,41 @@ public class ShadowBall : MonoBehaviour
     {
         ball=GameObject.FindGameObjectWithTag("Ball").GetComponent<Transform>();
 
-        //HedefBelirle();
+        HedefBelirle();
     }
 
     void Update()
     {
-        ballMovement();
-
-
-
         if(Input.GetMouseButtonDown(0))
         {
-            catchTheShadow();
-        }
 
-    }
+            float yukseklikFarki = Mathf.Abs(ball.transform.position.y - transform.position.y);
 
-    void ballMovement()
-    {
-        float newY = transform.position.y;
+            Debug.Log("Yükseklik Farký: " + yukseklikFarki);
+            Debug.Log("Ball Yükseklik: " + ball.transform.position.y);
+            Debug.Log("Shadow Yükseklik: " + transform.position.y);
 
-        if (yonYukariMi)
-        {
-            newY += Speed * Time.deltaTime;
-
-            if (newY >= yMax)
+            if (yukseklikFarki<=tolerans && Mathf.Approximately(ball.transform.position.y, transform.position.y))
             {
-                newY = yMax;
-                yonYukariMi = false;
+                Debug.Log("yer deðiþimi");
+                StartCoroutine(CatchTheShadowCoroutine());
+                
             }
+            
         }
-        else
-        {
-            newY -= Speed * Time.deltaTime;
-
-            if (newY <= yMin)
-            {
-                newY = yMin;
-                yonYukariMi = true;
-            }
-        }
-
-        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
 
-    void catchTheShadow()
+    IEnumerator CatchTheShadowCoroutine()
     {
-        if(ball!=null)
-        {
-            if(Mathf.Abs(ball.transform.position.y-transform.position.y)<=tolerans)
-            {
-                HedefBelirle();
-                transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
-            }
-        }
+        yield return new WaitForEndOfFrame();
+        Debug.Log("Coroutine Baþladý");
+        HedefBelirle();
+        transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
     }
 
     public void HedefBelirle()
     {
         targetY = Random.Range(yMin, yMax);
-        Invoke("HedefBelirle", HareketAraligi);
     }
 }
