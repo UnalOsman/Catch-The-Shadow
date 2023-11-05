@@ -8,13 +8,13 @@ public class ShadowBall : MonoBehaviour
     float yMin = -3.6f;
     float yMax = 5.64f;
 
-    float tolerans = 3f;
+    float tolerans = 0.5f;
 
     private float targetY;
 
 
     Transform ball;
-
+    public GameObject DeathPnl;
 
     private void Start()
     {
@@ -25,32 +25,34 @@ public class ShadowBall : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-
             float yukseklikFarki = Mathf.Abs(ball.transform.position.y - transform.position.y);
 
             Debug.Log("Yükseklik Farký: " + yukseklikFarki);
             Debug.Log("Ball Yükseklik: " + ball.transform.position.y);
             Debug.Log("Shadow Yükseklik: " + transform.position.y);
 
-            if (yukseklikFarki<=tolerans && Mathf.Approximately(ball.transform.position.y, transform.position.y))
+            if (yukseklikFarki <= tolerans)
             {
-                Debug.Log("yer deðiþimi");
-                StartCoroutine(CatchTheShadowCoroutine());
-                
+                Debug.Log("Catch the Shadow");
+                CatchTheShadow();
             }
-            
+            else
+            {
+                Time.timeScale = 0.0f;
+                DeathPnl.SetActive(true);
+            }
         }
+
     }
 
 
-    IEnumerator CatchTheShadowCoroutine()
+    void CatchTheShadow()
     {
-        yield return new WaitForEndOfFrame();
-        Debug.Log("Coroutine Baþladý");
-        HedefBelirle();
-        transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
+        
+            HedefBelirle();
+            transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
     }
 
     public void HedefBelirle()
