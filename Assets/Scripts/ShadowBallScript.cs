@@ -13,13 +13,13 @@ public class ShadowBall : MonoBehaviour
     private float targetY;
 
 
-    Transform ball;
+    public Transform ball;
     public GameObject DeathPnl;
+    public UI ui;
 
     private void Start()
     {
-        ball=GameObject.FindGameObjectWithTag("Ball").GetComponent<Transform>();
-
+        ui=FindObjectOfType<UI>();
         HedefBelirle();
     }
 
@@ -48,7 +48,7 @@ public class ShadowBall : MonoBehaviour
     }
 
 
-    void CatchTheShadow()
+    public void CatchTheShadow()
     {
         
             HedefBelirle();
