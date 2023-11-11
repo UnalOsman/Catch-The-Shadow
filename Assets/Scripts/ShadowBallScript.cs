@@ -29,14 +29,11 @@ public class ShadowBall : MonoBehaviour
         {
             float yukseklikFarki = Mathf.Abs(ball.transform.position.y - transform.position.y);
 
-            Debug.Log("Yükseklik Farký: " + yukseklikFarki);
-            Debug.Log("Ball Yükseklik: " + ball.transform.position.y);
-            Debug.Log("Shadow Yükseklik: " + transform.position.y);
 
             if (yukseklikFarki <= tolerans)
             {
-                Debug.Log("Catch the Shadow");
                 CatchTheShadow();
+                ui.ScoreFunc();
             }
             else
             {
