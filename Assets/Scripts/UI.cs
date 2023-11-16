@@ -10,14 +10,17 @@ public class UI : MonoBehaviour
 
     public ShadowBall sb;
     public GameData gameData;
+    public BallMovement Bm;
 
     public TextMeshProUGUI Score;
     public TextMeshProUGUI HighScore;
-    int score;
+    int score=0;
+    int bolenScore = 100;
 
     private void Start()
     {
         sb=FindObjectOfType<ShadowBall>();
+        Bm = FindObjectOfType<BallMovement>();
         gameData.LoadHighScore();
         UpdateHighScore();
     }
@@ -30,16 +33,22 @@ public class UI : MonoBehaviour
         sb.CatchTheShadow();
         score = 0;
         Score.text = score.ToString().PadLeft(5,'0');
+        Bm.Speed = 8;
     }
 
     private void Update()
     {
         updateScore();
+        
     }
 
     public void ScoreFunc()
     {
         score+=10;
+        if (score % bolenScore == 0)
+        {
+            Bm.Speed += 1.5f;
+        }
         Score.text=score.ToString().PadLeft(5,'0');
 
     }

@@ -16,6 +16,7 @@ public class ShadowBall : MonoBehaviour
     public Transform ball;
     public GameObject DeathPnl;
     public UI ui;
+    
 
     private void Start()
     {
