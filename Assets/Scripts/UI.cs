@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -17,12 +15,16 @@ public class UI : MonoBehaviour
     int score=0;
     int bolenScore = 100;
 
+    private HighScoreManager highScoreManager;
+
     private void Start()
     {
         sb=FindObjectOfType<ShadowBall>();
         Bm = FindObjectOfType<BallMovement>();
         gameData.LoadHighScore();
         UpdateHighScore();
+
+        highScoreManager = new HighScoreManager(gameData);
     }
 
     public void Restart()
@@ -55,12 +57,7 @@ public class UI : MonoBehaviour
 
     void updateScore()
     {
-        if (score > gameData.HighScore)
-        {
-            gameData.HighScore = score;
-            UpdateHighScore();
-            gameData.SaveHighScore();
-        }
+        highScoreManager.UpdateHighScore(score);
     }
 
     public void UpdateHighScore()
