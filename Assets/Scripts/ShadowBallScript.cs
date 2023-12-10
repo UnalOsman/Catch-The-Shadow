@@ -14,12 +14,20 @@ public class ShadowBall : MonoBehaviour
     public Transform ball;
     public GameObject DeathPnl;
     public UI ui;
-    
+
+
+    private int consecutiveCatches = 0;
+    public int requiredConsecutiveCatches = 4;
+
+    public SlowDownController slowDownController;
+
 
     private void Start()
     {
         ui=FindObjectOfType<UI>();
         HedefBelirle();
+
+        requiredConsecutiveCatches = Random.Range(3, 6);
     }
 
     void Update()
@@ -48,6 +56,26 @@ public class ShadowBall : MonoBehaviour
     {
         
             HedefBelirle();
+
+        if(Mathf.Abs(ball.transform.position.y-transform.position.y) <=tolerans)
+        {
+            consecutiveCatches++;
+
+            if (consecutiveCatches >= requiredConsecutiveCatches)
+            {
+                if(slowDownController != null)
+                {
+                    slowDownController.OnSuccessfulCatch();
+                }
+                consecutiveCatches = 0;
+            }
+        }
+        else
+        {
+            consecutiveCatches = 0;
+        }
+
+
             transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
     }
 
