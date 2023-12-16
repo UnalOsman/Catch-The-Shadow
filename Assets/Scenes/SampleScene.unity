@@ -436,6 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SlowDownAmount: 2
   ActiveDuration: 4
+  requiredConsecutiveCatches: 4
 --- !u!114 &386899788
 MonoBehaviour:
   m_ObjectHideFlags: 0

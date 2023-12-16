@@ -27,7 +27,7 @@ public class ShadowBall : MonoBehaviour
         ui=FindObjectOfType<UI>();
         HedefBelirle();
 
-        requiredConsecutiveCatches = Random.Range(3, 6);
+        //requiredConsecutiveCatches = Random.Range(3, 6);
     }
 
     void Update()
@@ -68,6 +68,8 @@ public class ShadowBall : MonoBehaviour
                     slowDownController.OnSuccessfulCatch();
                 }
                 consecutiveCatches = 0;
+
+                
             }
         }
         else
