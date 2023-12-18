@@ -8,6 +8,7 @@ public class SlowDownController : MonoBehaviour
 
     public void OnSuccessfulCatch()
     {
+        slowDown.setActive();
         slowDown.OnSuccessfulCatch();
     }
 }

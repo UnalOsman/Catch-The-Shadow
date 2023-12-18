@@ -32,7 +32,7 @@ public class ShadowBall : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             float yukseklikFarki = Mathf.Abs(ball.transform.position.y - transform.position.y);
 
@@ -63,8 +63,10 @@ public class ShadowBall : MonoBehaviour
 
             if (consecutiveCatches >= requiredConsecutiveCatches)
             {
-                if(slowDownController != null)
+                Debug.Log("consecutiveCatches >= requiredConsecutiveCatches koþulu çalýþtý");
+                if (slowDownController != null)
                 {
+                    Debug.Log("onsuccessful fonksiyonu çalýþmasý lazým");
                     slowDownController.OnSuccessfulCatch();
                 }
                 consecutiveCatches = 0;

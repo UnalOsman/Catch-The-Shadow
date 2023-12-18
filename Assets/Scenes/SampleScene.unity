@@ -295,9 +295,9 @@ MonoBehaviour:
   HareketAraligi: 2
   ball: {fileID: 496412677}
   DeathPnl: {fileID: 817713259}
-  ui: {fileID: 0}
+  ui: {fileID: 387253877}
   requiredConsecutiveCatches: 4
-  slowDownController: {fileID: 0}
+  slowDownController: {fileID: 932985456}
 --- !u!135 &344146604
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -402,7 +402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &386899786
 RectTransform:
   m_ObjectHideFlags: 0

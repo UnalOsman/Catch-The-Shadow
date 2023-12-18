@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class SlowDown : MonoBehaviour
+public class SlowDown : MonoBehaviour , IPointerClickHandler
 {
     private RectTransform rectTransform;
 
@@ -21,30 +24,15 @@ public class SlowDown : MonoBehaviour
         //requiredConsecutiveCatches = Random.Range(3, 6);
 
         rectTransform = GetComponent<RectTransform>();
-        setInActive();
+        RandomPosition();
     }
 
    
     void Update()
     {
-        
-        
-            if (isActive)
-            {
-                activeTimer += Time.deltaTime;
-
-                if (activeTimer >= ActiveDuration)
-                {
-                    setActive();
-                }
-            }
-
-            if(consecutiveCatches >= requiredConsecutiveCatches && !isActive)
-        {
-            isActive = true;
-        }
-        
+       
     }
+
 
     public void OnSuccessfulCatch()
     {
@@ -54,6 +42,7 @@ public class SlowDown : MonoBehaviour
 
         if (consecutiveCatches >= requiredConsecutiveCatches)
         {
+            Debug.Log("slowDownBall çalýþmalý");
             slowDownBall();
             consecutiveCatches = 0;
         }
@@ -63,22 +52,21 @@ public class SlowDown : MonoBehaviour
     {
 
         Debug.Log("slowdownball çalýþtý");
-        FindObjectOfType<BallMovement>().Speed -= SlowDownAmount;
-
-        setInActive() ;
-
         /*
-        if(isActive)
+        if(OnPointerClick()==PointerEventData.InputButton.Right)
         {
-            setInActive();
-        }
+            if (isActive)
+            {
+                FindObjectOfType<BallMovement>().Speed -= SlowDownAmount;
 
-        setActive();
+                setInActive();
+            }
+        }
         */
     }
 
 
-    private void setActive()
+    public void setActive()
     {
 
         Debug.Log("setactive çalýþtý");
@@ -112,6 +100,11 @@ public class SlowDown : MonoBehaviour
         rectTransform.anchoredPosition = new Vector2(randomX * Screen.width, randomY * Screen.height);
     }
 
-
-    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {
+            slowDownBall();
+        }
+    }
 }
