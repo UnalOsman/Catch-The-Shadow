@@ -13,6 +13,7 @@ public class ShadowBall : MonoBehaviour
 
     public Transform ball;
     public GameObject DeathPnl;
+    public GameObject Slowdown;
     public UI ui;
 
 
@@ -64,6 +65,8 @@ public class ShadowBall : MonoBehaviour
             if (consecutiveCatches >= requiredConsecutiveCatches)
             {
                 Debug.Log("consecutiveCatches >= requiredConsecutiveCatches koþulu çalýþtý");
+
+                Slowdown.gameObject.SetActive(true);
                 if (slowDownController != null)
                 {
                     Debug.Log("onsuccessful fonksiyonu çalýþmasý lazým");

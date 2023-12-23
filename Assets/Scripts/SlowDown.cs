@@ -7,12 +7,12 @@ using UnityEngine.EventSystems;
 
 public class SlowDown : MonoBehaviour , IPointerClickHandler
 {
-    private RectTransform rectTransform;
+    public RectTransform rectTransform;
 
     public float SlowDownAmount = 2.0f;
     public float ActiveDuration = 4.0f;
 
-    private bool isActive = true;
+    private bool isActive = false;
     private float activeTimer = 0f;
 
     private int consecutiveCatches = 0;
@@ -23,14 +23,18 @@ public class SlowDown : MonoBehaviour , IPointerClickHandler
     {
         //requiredConsecutiveCatches = Random.Range(3, 6);
 
-        rectTransform = GetComponent<RectTransform>();
-        RandomPosition();
+        //rectTransform = GetComponent<RectTransform>();
     }
 
    
     void Update()
     {
-       
+        /*
+       if (!isActive)
+        {
+            setActive();
+        }
+       */
     }
 
 
@@ -39,9 +43,10 @@ public class SlowDown : MonoBehaviour , IPointerClickHandler
 
         Debug.Log("onscuccessfulcatch çalýþtý");
         consecutiveCatches++;
-
         if (consecutiveCatches >= requiredConsecutiveCatches)
         {
+            
+            RandomPosition();
             Debug.Log("slowDownBall çalýþmalý");
             slowDownBall();
             consecutiveCatches = 0;
@@ -52,17 +57,14 @@ public class SlowDown : MonoBehaviour , IPointerClickHandler
     {
 
         Debug.Log("slowdownball çalýþtý");
-        /*
-        if(OnPointerClick()==PointerEventData.InputButton.Right)
-        {
+        
             if (isActive)
             {
                 FindObjectOfType<BallMovement>().Speed -= SlowDownAmount;
 
                 setInActive();
             }
-        }
-        */
+       
     }
 
 
@@ -89,15 +91,16 @@ public class SlowDown : MonoBehaviour , IPointerClickHandler
     void RandomPosition()
     {
         Debug.Log("random posizyon ayarlandý");
+        
+            rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+            rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            rectTransform.pivot = new Vector2(0.5f, 0.5f);
 
-        rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-        rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-        rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            float randomX = Random.Range(0.1f, 0.45f); // Uygun bir x aralýðý seç
+            float randomY = Random.Range(-0.4f, 0.45f); // Uygun bir y aralýðý seç
 
-        float randomX = Random.Range(0.1f, 0.45f); // Uygun bir x aralýðý seç
-        float randomY = Random.Range(-0.4f, 0.45f); // Uygun bir y aralýðý seç
-
-        rectTransform.anchoredPosition = new Vector2(randomX * Screen.width, randomY * Screen.height);
+            rectTransform.anchoredPosition = new Vector2(randomX * Screen.width, randomY * Screen.height);
+        
     }
 
     public void OnPointerClick(PointerEventData eventData)

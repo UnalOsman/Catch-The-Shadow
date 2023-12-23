@@ -295,6 +295,7 @@ MonoBehaviour:
   HareketAraligi: 2
   ball: {fileID: 496412677}
   DeathPnl: {fileID: 817713259}
+  Slowdown: {fileID: 386899785}
   ui: {fileID: 387253877}
   requiredConsecutiveCatches: 4
   slowDownController: {fileID: 932985456}
@@ -402,7 +403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &386899786
 RectTransform:
   m_ObjectHideFlags: 0
@@ -434,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb698405e3457e48a3df4bdbe64501f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rectTransform: {fileID: 386899786}
   SlowDownAmount: 2
   ActiveDuration: 4
   requiredConsecutiveCatches: 4
